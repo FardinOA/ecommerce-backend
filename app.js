@@ -5,12 +5,19 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const app = express();
 const path = require("path");
-
+const cors = require("cors");
 //////////////////////////////
 
 // config
 
 require("dotenv").config();
+
+app.use(
+    cors({
+        origin: ["http://localhost:3000"],
+        credentials: true,
+    })
+);
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
