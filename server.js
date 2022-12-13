@@ -35,6 +35,10 @@ const server = app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
 
+app.get("/", (req, res) => {
+    res.json({ message: "hello Fardin" });
+});
+
 // unhandled promise rejection
 process.on("unhandledRejection", (err) => {
     console.log(`Error: ${err.message}`);
