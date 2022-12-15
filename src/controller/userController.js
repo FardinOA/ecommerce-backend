@@ -84,9 +84,7 @@ exports.forgotPassword = catchAssyncErrors(async (req, res, next) => {
     // get the reset token
     const resetToken = user.getResetPasswordToken();
     user.save({ validateBeforeSave: false });
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-        "host"
-    )}/password/reset/${resetToken}`;
+    const resetPasswordUrl = `https://ecommerce-frontend-fardinoa.vercel.app/password/reset/${resetToken}`;
 
     const message = `your password reset token is :- \n\n ${resetPasswordUrl} \n\nif you have not requested this email then, Please ignore it`;
 
