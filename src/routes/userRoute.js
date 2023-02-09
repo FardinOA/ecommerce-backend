@@ -26,6 +26,7 @@ router.put("/password/update", isAuth, updatePassword);
 router.put("/me/update", isAuth, updateUserInfo);
 router.get("/admin/users", isAuth, authRole("admin"), getAllUsers);
 router.get("/admin/user/:id", isAuth, authRole("admin"), getSingleUser);
+router.get("/user/:id", isAuth, getSingleUser);
 router.put("/admin/user/:id", isAuth, authRole("admin"), updateUserRole);
 router.delete("/admin/user/:id", isAuth, authRole("admin"), deleteUser);
 
