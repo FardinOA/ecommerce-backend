@@ -19,6 +19,9 @@ app.use(
             "https://ecommerce-frontend-fardinoa.vercel.app",
             "https://ecommerce-frontend-git-main-fardinoa.vercel.app",
             "https://ecommerce-frontend-theta.vercel.app",
+            "https://task-repliq-afnan.vercel.app",
+            "https://task-repliq-afnan-git-main-fardinoa.vercel.app",
+            "https://task-repliq-afnan-fardinoa.vercel.app",
         ],
         credentials: true,
     })
