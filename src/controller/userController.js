@@ -13,10 +13,13 @@ exports.registerUser = catchAssyncErrors(async (req, res, next) => {
         crop: "scale",
     });
 
-    const { name, email, phone, password } = req.body;
-
+    const { name, email, password } = req.body;
+    console.log(req.body);
     const user = await User.create({
-        ...req.body,
+        name,
+        email,
+
+        password,
         avatar: {
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
@@ -34,6 +37,29 @@ exports.registerUser = catchAssyncErrors(async (req, res, next) => {
     } catch (err) {
         return next(new ErrorHandeler(err.message, 500));
     }
+});
+
+exports.registerUserWithPhone = catchAssyncErrors(async (req, res, next) => {
+    const myCloud = await cloudinary.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale",
+    });
+
+    const { name, phone, password } = req.body;
+    console.log(req.body);
+    const user = await User.create({
+        name,
+
+        phone,
+        password,
+        avatar: {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+        },
+    });
+
+    sendToken(user, 201, res);
 });
 
 // login
@@ -65,9 +91,9 @@ exports.loginUserPhoneNo = catchAssyncErrors(async (req, res, next) => {
         return next(new ErrorHandeler("Please Enter phone & Password", 400));
     }
     const users = await User.find();
-    console.log(users);
+
     const user = await User.findOne({ phone }).select("+password");
-    console.log(user);
+
     if (!user) {
         return next(new ErrorHandeler("Invalid phone or Password", 401));
     }

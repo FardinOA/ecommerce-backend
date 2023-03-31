@@ -14,10 +14,12 @@ const {
     updateUserRole,
     deleteUser,
     loginUserPhoneNo,
+    registerUserWithPhone,
 } = require("../controller/userController");
 const router = express.Router();
 
 router.post("/register", registerUser);
+router.post("/register-with-phone", registerUserWithPhone);
 router.post("/login", loginUser);
 router.post("/login-with-phone", loginUserPhoneNo);
 router.post("/password/forgot", forgotPassword);

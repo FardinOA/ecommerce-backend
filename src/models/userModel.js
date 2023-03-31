@@ -21,7 +21,7 @@ const userSchema = new Schema(
             type: String,
 
             unique: true,
-            validator: [validator.isEmail, "Please enter a valid email"],
+
             trim: true,
         },
         password: {
