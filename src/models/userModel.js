@@ -13,9 +13,14 @@ const userSchema = new Schema(
             maxlength: [30, "Name must be below 30 characters"],
             minlength: [4, "Name must be at least 4 characters"],
         },
+        phone: {
+            type: String,
+
+            unique: true,
+        },
         email: {
             type: String,
-            required: [true, "Please Enter Your Email"],
+
             unique: true,
             validator: [validator.isEmail, "Please enter a valid email"],
             trim: true,
