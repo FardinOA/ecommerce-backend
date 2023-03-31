@@ -13,11 +13,13 @@ const {
     getSingleUser,
     updateUserRole,
     deleteUser,
+    loginUserPhoneNo,
 } = require("../controller/userController");
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/login-with-phone", loginUserPhoneNo);
 router.post("/password/forgot", forgotPassword);
 router.put("/password/reset/:token", resetPassword);
 router.get("/logout", logout);

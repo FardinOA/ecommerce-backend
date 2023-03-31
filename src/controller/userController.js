@@ -39,18 +39,12 @@ exports.registerUser = catchAssyncErrors(async (req, res, next) => {
 // login
 
 exports.loginUser = catchAssyncErrors(async (req, res, next) => {
-    const { email, password, phone } = req.body;
+    const { email, password } = req.body;
 
-    if (!password || phone) {
+    if (!email || !password) {
         return next(new ErrorHandeler("Please Enter Email & Password", 400));
     }
-    let user;
-    if (phone) {
-        user = await User.findOne({ phone }).select("+password");
-    } else {
-        user = await User.findOne({ email }).select("+password");
-    }
-
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
         return next(new ErrorHandeler("Invalid Email or Password", 401));
     }
@@ -59,6 +53,29 @@ exports.loginUser = catchAssyncErrors(async (req, res, next) => {
 
     if (!isPassMatch) {
         return next(new ErrorHandeler("Invalid Email or Password", 401));
+    }
+
+    sendToken(user, 200, res);
+});
+
+exports.loginUserPhoneNo = catchAssyncErrors(async (req, res, next) => {
+    const { phone, password } = req.body;
+
+    if (!phone || !password) {
+        return next(new ErrorHandeler("Please Enter phone & Password", 400));
+    }
+    const users = await User.find();
+    console.log(users);
+    const user = await User.findOne({ phone }).select("+password");
+    console.log(user);
+    if (!user) {
+        return next(new ErrorHandeler("Invalid phone or Password", 401));
+    }
+
+    const isPassMatch = await user.comparePassword(password);
+
+    if (!isPassMatch) {
+        return next(new ErrorHandeler("Invalid phone or Password", 401));
     }
 
     sendToken(user, 200, res);
